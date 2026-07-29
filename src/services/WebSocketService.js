@@ -13,7 +13,7 @@ export const connectWebSocket = (
     onReactionReceived,
     onNotificationReceived,
     onDeleteMessageReceived,
-    onConnected // ⭐ NEW
+    onConnected
 ) => {
 
     const socket = new SockJS("http://localhost:8089/chat");
