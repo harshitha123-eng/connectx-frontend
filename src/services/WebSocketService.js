@@ -16,7 +16,7 @@ export const connectWebSocket = (
     onConnected
 ) => {
 
-    const socket = new SockJS("http://localhost:8089/chat");
+   const socket = new SockJS("https://connectx-backend-1-nv31.onrender.com/chat");
 
     const token = localStorage.getItem("token");
 

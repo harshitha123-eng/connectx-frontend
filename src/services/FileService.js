@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API = "http://localhost:8089/api/files";
 
+const API = "https://connectx-backend-1-nv31.onrender.com/api/files";
 export const uploadFile = async (file, token) => {
 
     const formData = new FormData();
