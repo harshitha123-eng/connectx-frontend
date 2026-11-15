@@ -12,7 +12,8 @@ import {
     addMember,
     removeMember,
     leaveGroup,
-    deleteGroup
+    deleteGroup,
+    createGroup
    
 } from "../services/GroupService";
 import * as WebSocketService from "../services/WebSocketService";
@@ -56,6 +57,34 @@ function Home() {
     const [notifications, setNotifications] = useState([]);
     const [showNotifications, setShowNotifications] = useState(false);
     const loggedInUserId = Number(localStorage.getItem("userId"));
+    const [showCreateGroup, setShowCreateGroup] = useState(false);
+    const [newGroupName, setNewGroupName] = useState("");
+    const [newGroupDescription, setNewGroupDescription] = useState("");
+    const [newGroupMembers, setNewGroupMembers] = useState([]);
+
+    const handleCreateGroup = async () => {
+        if (!newGroupName.trim()) {
+            alert("Group name is required");
+            return;
+        }
+        try {
+            await createGroup({
+                name: newGroupName.trim(),
+                description: newGroupDescription.trim(),
+                adminId: loggedInUserId,
+                memberIds: newGroupMembers
+            });
+            alert("Group created successfully");
+            setShowCreateGroup(false);
+            setNewGroupName("");
+            setNewGroupDescription("");
+            setNewGroupMembers([]);
+            fetchGroups();
+        } catch (error) {
+            console.log(error);
+            alert("Failed to create group");
+        }
+    };
    
     const unreadNotificationCount = notifications.filter(
     notification => !notification.isRead
@@ -909,6 +938,78 @@ const formatLastSeen = (lastSeen) => {
     </div>
 )}
     </div>
+                <button
+    onClick={() => setShowCreateGroup(true)}
+    style={{
+        width: "100%",
+        padding: "10px",
+        marginTop: "8px",
+        border: "none",
+        borderRadius: "8px",
+        background: "#128C7E",
+        color: "#fff",
+        cursor: "pointer",
+        fontSize: "14px"
+    }}
+>
+    + New group
+</button>
+
+{showCreateGroup && (
+    <div style={styles.popupOverlay}>
+        <div style={styles.popup}>
+            <button
+                onClick={() => setShowCreateGroup(false)}
+                style={styles.closeButton}
+            >
+                ✖
+            </button>
+            <h2>New Group</h2>
+            <input
+                type="text"
+                placeholder="Group name"
+                value={newGroupName}
+                onChange={(e) => setNewGroupName(e.target.value)}
+                style={styles.popupInput}
+            />
+            <textarea
+                placeholder="Description (optional)"
+                value={newGroupDescription}
+                onChange={(e) => setNewGroupDescription(e.target.value)}
+                style={styles.popupTextarea}
+            />
+            <div style={{ maxHeight: "180px", overflowY: "auto", margin: "10px 0" }}>
+                {users.map((user) => (
+                    <label key={user.id} style={{ display: "block", padding: "4px 0" }}>
+                        <input
+                            type="checkbox"
+                            checked={newGroupMembers.includes(user.id)}
+                            onChange={(e) =>
+                                setNewGroupMembers((prev) =>
+                                    e.target.checked
+                                        ? [...prev, user.id]
+                                        : prev.filter((id) => id !== user.id)
+                                )
+                            }
+                        />{" "}
+                        {user.fullName}
+                    </label>
+                ))}
+            </div>
+            <div style={styles.popupButtonContainer}>
+                <button
+                    style={styles.cancelButton}
+                    onClick={() => setShowCreateGroup(false)}
+                >
+                    Cancel
+                </button>
+                <button style={styles.saveButton} onClick={handleCreateGroup}>
+                    Create
+                </button>
+            </div>
+        </div>
+    </div>
+)}
 
        <input
                     type="text"
