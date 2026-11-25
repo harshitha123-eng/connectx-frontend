@@ -1,16 +1,29 @@
-# React + Vite
+# ConnectX Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Real-time chat application built with React and Vite.
 
-Currently, two official plugins are available:
+**Live demo:** https://connectx-frontend-steel.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+> Note: the backend is on a free tier, so the first request may take up to a minute to wake up.
 
-## React Compiler
+## Features
+- Register and login (JWT)
+- Real-time private chat with WebSocket
+- Group chat: create groups, add and remove members, leave or delete a group (admin controls)
+- Online status, typing indicator, read receipts
+- File, image and video sharing
+- Message reactions and message deletion
+- In-app notifications
+- Message search
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
+React, Vite, React Router, Axios, WebSocket, deployed on Vercel
 
-## Expanding the ESLint configuration
+## Run Locally
+1. `git clone https://github.com/harshitha123-eng/connectx-frontend.git`
+2. `cd connectx-frontend`
+3. `npm install`
+4. `npm run dev`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Backend
+https://github.com/harshitha123-eng/connectx-backend
