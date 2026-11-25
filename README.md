@@ -17,7 +17,7 @@ Real-time chat application built with React and Vite.
 - Message search
 
 ## Tech Stack
-React, Vite, React Router, Axios, WebSocket, deployed on Vercel
+React.js, Vite, React Router, Axios, WebSocket (STOMP , SOCKJS), deployed on Vercel
 
 ## Run Locally
 1. `git clone https://github.com/harshitha123-eng/connectx-frontend.git`
